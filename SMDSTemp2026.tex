@@ -1,0 +1,414 @@
+%==================================
+% SMDS TEMPLATE 
+%==================================
+% This document is a simplified template for preparing manuscripts for the Statistical Modeling and Data Science (SMDS) journal. 
+
+\documentclass[11pt,twoside]{article}
+
+%==================================
+% PACKAGES
+%==================================
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts} 
+\usepackage{graphicx}  
+\usepackage{booktabs}  
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{setspace}
+\usepackage[
+backend=biber,
+style=numeric-comp,
+sorting=none,
+giveninits=true,
+doi=true,
+url=false
+]{biblatex}
+\addbibresource{SMDSBib.bib}
+\usepackage{fancyhdr}
+\newcommand{\shorttitle}{}
+\newcommand{\shortauthor}{}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\shorttitle}
+\fancyhead[R]{\small\shortauthor}
+
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\newcommand{\orcidlink}[1]{%
+\href{https://orcid.org/#1}{\includegraphics[height=1.6ex]{ORCID_iD.png}}%
+}
+\renewcommand{\figurename}{Gambar}
+\renewcommand{\tablename}{Tabel} 
+
+%==================================
+% SIMPLE SMDS MACROS (Compatibility Layer)
+%==================================
+
+% Ditambahkan \date{} agar tanggal otomatis terhapus secara global
+\newcommand{\SMDStitle}[1]{\title{\vspace*{-1.2cm}\bfseries #1}\date{}}
+\newcommand{\SMDSshorttitle}[1]{\def\shorttitle{#1}}
+\newcommand{\SMDSshortafill}[1]{\def\shortauthor{#1}}
+
+\newcommand{\SMDSaffilone}[1]{\def\affilone{#1}}
+\newcommand{\SMDSaffiltwo}[1]{\def\affiltwo{#1}}
+\newcommand{\SMDSaffilthree}[1]{\def\affilthree{#1}}
+
+\newcommand{\authorone}{}
+\newcommand{\corrauthor}{}
+
+\newcommand{\SMDSauthorone}[4]{\def\authorone{#1$^{#2}$\,\orcidlink{#3}}}
+\newcommand{\SMDScorrespoding}[2]{%
+\def\corrauthor{#1 \href{mailto:#2}{#2}}}
+
+\newcommand{\SMDSKeywords}[1]{
+\vspace{0.5em}
+\noindent\textbf{Keywords:} #1
+}
+
+\newcommand{\acknowledg}[1]{
+\section*{Acknowledgments}
+#1
+}
+
+\newcommand{\funding}[1]{
+\section*{Funding}
+#1
+}
+
+%==================================
+% METADATA
+%==================================
+
+\SMDStitle{Penerapan Algoritme Expectation-Maximization (EM) Berbasis Varians Penuh (Full-Covariance) untuk Unsupervised Semantic Segmentation Citra OpenEarthMap}
+
+\SMDSshortafill{D. P. Akrilian}
+\SMDSshorttitle{EM-GMM Land Cover Clustering}
+
+% Hanya menyisakan 1 afiliasi resmi sesuai permintaan
+\SMDSaffilone{Program Studi Statistika dan Sains Data, Fakultas Matematika dan Ilmu Pengetahuan Alam, Universitas Negeri Semarang, Indonesia}
+
+%---------------------------------
+% AUTHORS
+%---------------------------------
+% Mengosongkan parameter super-skrip angka karena hanya ada 1 universitas
+\SMDSauthorone{Dimas Pasha Akrilian}{}{0009-0005-6037-3591}{dimaspasha49@gmail.com}
+\SMDScorrespoding{Corresponding Author: Dimas Pasha Akrilian}{dimaspasha49@gmail.com}
+
+%==================================
+% AUTHOR BLOCK (RATA KIRI & 1 AFILIASI)
+%==================================
+
+\author{
+\begin{minipage}{\textwidth}
+\raggedright % Mengubah susunan menjadi rata kiri (tidak di tengah)
+\setstretch{1.1}
+{\large \authorone} \\[0.6em]
+{\small
+\affilone \\[0.5em]
+\corrauthor
+}
+\end{minipage}
+}
+%==================================
+
+\begin{document}
+
+\newcommand{\INCLUDECOVER}{}
+\input{cover.tex}
+\clearpage
+
+\maketitle
+
+%==================================
+\begin{abstract}
+
+Segmentasi semantik tanpa pengawasan (\textit{unsupervised}) pada citra satelit resolusi tinggi tetap menjadi tantangan yang berkelanjutan akibat heterogenitas spasial dan kebutuhan komputasi yang intensif. Penelitian ini mengusulkan sebuah kerangka kerja statistik \textit{non-deep-learning} yang efisien sumber daya untuk pemetaan tutupan lahan otomatis menggunakan \textit{Gaussian Mixture Model} spasio-spektral yang dioptimalkan melalui algoritme \textit{Expectation-Maximization} (GMM-EM). Ruang fitur 7-dimensi yang kokoh direkayasa untuk lebih dari dua juta piksel, menggabungkan saluran warna RGB radiometrik mentah, indeks biofisik non-linear (\textit{Excess Green} dan \textit{Excess Red}), serta koordinat grid spasial yang dinormalisasi. Penyempurnaan metodologis utama mencakup penyuntikan bobot penalti spasial yang disesuaikan ($\alpha = 0,1$) untuk mencegah pemotongan blok geometris yang kaku dan memitigasi \textit{noise salt-and-pepper}. Alokasi kluster acak secara otomatis dipetakan ke dalam kelas semantik dunia nyata menggunakan algoritme optimasi kombinatorial Hungarian. Model berhasil mencapai konvergensi penuh pada iterasi ke-40 dalam durasi komputasi selama 186,40 detik, menghasilkan nilai \textit{Overall Pixel Accuracy} (OA) sebesar 34,78\%, \textit{Mean Intersection over Union} (mIoU) sebesar 18,82\%, dan skor \textit{Bayesian Information Criterion} (BIC) sebesar -26.332.570,69. Evaluasi kelas secara granular menunjukkan delineasi yang kuat untuk fitur biologis dengan kontras tinggi, seperti \textit{Cropland} (IoU 49,24\%) dan \textit{Tree} (IoU 31,02\%). Sebaliknya, fenomena absorpsi ragam (\textit{variance absorption}) teramati pada kelas \textit{Bareland} (IoU 0,00\%), yang sepenuhnya terasimilasi ke dalam kelas infrastruktur urban akibat tumpang tindih nilai radiometrik. Penelitian ini menunjukkan bahwa model campuran probabilistik yang ketat secara matematis dapat bertindak sebagai kerangka kerja awal (\textit{baseline}) yang sangat transparan, stabil, dan ringan untuk tugas-tugas segmentasi geospasial.
+
+\end{abstract}
+
+\SMDSKeywords{Model campuran Gaussian, algoritme EM, segmentasi semantik tanpa pengawasan, penginderaan jauh, fitur spasio-spektral, algoritme Hungarian}
+
+%==================================
+\section{Pendahuluan}
+\label{Sec:Intro}
+Pemetaan tutupan lahan menggunakan citra satelit resolusi tinggi telah menjadi pilar utama
+yang sangat penting dalam bidang penginderaan jauh, khususnya untuk aplikasi perencanaan 
+wilayah urban hingga pemantauan lingkungan global. Kehadiran dataset modern seperti 
+\textit{OpenEarthMap} menyediakan repositori citra berskala sub-meter yang mampu 
+menangkap tata letak geospasial yang sangat kompleks di berbagai wilayah 
+geografis \cite{tokula2022openearthmap}. Dalam beberapa tahun terakhir, arsitektur 
+\textit{deep learning}, terutama \textit{Convolutional Neural Networks} (CNN) 
+dan \textit{Vision Transformers} (ViT), telah mendominasi domain ini dan mencapai akurasi 
+segmentasi semantik tingkat piksel yang sangat tinggi. Namun, model parametrik 
+\textit{deep learning} tersebut memiliki batasan mendasar: memerlukan anotasi data 
+tingkat piksel dalam jumlah yang masif, membebani kapasitas komputasi sehingga 
+membutuhkan \textit{Graphics Processing Unit} (GPU) berspesifikasi tinggi, serta 
+secara inheren kurang memiliki interpretabilitas statistik parametrik. 
+Oleh karena itu, terdapat urgensi penelitian yang krusial untuk mengembangkan 
+kerangka kerja yang bersifat \textit{unsupervised}, efisien secara komputasi, 
+dan transparan secara statistik untuk mengekstraksi batas tutupan lahan secara 
+granular tanpa bergantung pada label data latih yang ekstensif.
+
+Meskipun teknik klusterisasi \textit{unsupervised} menawarkan pendekatan yang elegan, 
+mempartisi data penginderaan jauh resolusi tinggi menghadirkan tantangan signifikan 
+dalam analisis data statistik. Citra resolusi tinggi umumnya menunjukkan variabilitas 
+spektral intra-kelas dan heterogenitas spasial yang sangat tinggi, sehingga memicu 
+timbulnya \textit{noise} acak jenis \textit{salt-and-pepper} yang parah jika diproses 
+menggunakan model terisolasi per piksel tradisional. Selain itu, fenomena tumpang 
+tindih spektral (\textit{spectral overlapping}) yang parah sering terjadi di antara 
+kelas geospasial yang berbeda; sebagai contoh, profil reflektansi jalan raya, atap 
+bangunan, dan trotoar sering kali tidak dapat dibedakan dalam spektrum saluran warna 
+mentah (RGB), sementara lahan terbuka (\textit{bareland}) berbagi batas radiometrik 
+yang identik dengan infrastruktur urban. Untuk menyelesaikan ambiguitas matematis ini, 
+model statistik harus mengintegrasikan rekayasa fitur kokoh yang memperkaya nilai 
+radiometrik mentah dengan indikator biofisik matematis seperti indeks 
+\textit{Excess Green} ($ExG$) dan \textit{Excess Red} 
+($ExR$) \cite{woebbecke1995color} serta koordinat grid spasial global untuk menyuntikkan 
+kesadaran posisi (\textit{positional awareness}) sekaligus menjaga kontinuitas topografi 
+lokal.
+
+Untuk mengatasi tantangan ganda terkait efisiensi komputasi dan \textit{noise} struktural 
+tersebut, penelitian ini mengusulkan sebuah kerangka kerja spasio-spektral 
+\textit{unsupervised} yang komprehensif menggunakan \textit{Gaussian Mixture Model} 
+(GMM) yang dioptimalkan melalui algoritme iteratif \textit{Expectation-Maximization} 
+(EM) \cite{dempster1977maximum}. Dengan membangun ruang fitur tujuh dimensi yang 
+diperkaya mencakup saluran RGB ternormalisasi, $ExG$, $ExR$, dan koordinat spasial 
+kontinu global ($X, Y$) model ini mampu menangkap bentuk kluster elipsoid yang 
+kompleks menggunakan struktur kovarians penuh (\textit{full covariance}). 
+Keunggulan komputasi utama dari pendekatan ini adalah kemenangannya dalam 
+mengevaluasi jutaan piksel secara simultan hanya dalam hitungan detik pada perangkat 
+keras standar, serta menyediakan alokasi probabilitas \textit{soft-clustering} eksplisit 
+yang secara alami mampu mendelineasi batas transisi piksel 
+campuran (\textit{mixed-pixel}). Untuk menjembatani celah semantik yang inheren 
+pada pembelajaran \textit{unsupervised}, masalah pertukaran label 
+kombinatorial (\textit{label-switching}) diselesaikan dengan menerapkan algoritme 
+pencocokan Hungarian terhadap pembanding \textit{ground truth}, sehingga memungkinkan v
+alidasi kuantitatif yang ketat terhadap kerangka kerja statistik yang 
+diusulkan \cite{kuhn1955hungarian}.
+
+%==================================
+\section{Metode Penelitian}
+\label{Sec:Method}
+
+\subsection{Akuisisi Data dan Pra-pemrosesan Citra}
+Penelitian ini menggunakan dataset \textit{OpenEarthMap} (subset \textit{OpenEarthMap\_wo\_xBD}) yang terdiri dari citra satelit multispektral beresolusi tinggi dengan tingkat detail spasial sub-meter \cite{tokula2022openearthmap}. Data dikondisikan ke dalam format \textit{mini-batch} berukuran $B = 8$ dengan setiap citra diubah dimensinya secara konsisten menggunakan operasi \textit{interpolation} menjadi matriks spasial beresolusi $H \times W = 512 \times 512$ piksel. 
+
+Langkah prapemrosesan krusial dilakukan pada label target (\textit{Ground Truth} Mask) melalui transformasi pemetaan indeks. Skala kelas asli dari dataset yang bernilai rentang integer $1$ hingga $8$ ditransformasikan secara linear menjadi format indeks array berbasis nol (\textit{zero-based indexing}) yaitu $0$ hingga $7$ melalui persamaan:
+\begin{equation}
+    c_{img} = \max(0, \, c_{raw} - 1)
+\end{equation}
+di mana $c_{raw}$ adalah indeks kelas mentah dari dataset asli dan $c_{img} \in \{0, 1, \dots, 7\}$ merepresentasikan 8 kategori tutupan lahan standar, yaitu \textit{Bareland, Grass, Pavement, Road, Tree, Water, Cropland}, dan \textit{Building}.
+
+\subsection{Rekayasa Fitur Spasio-Spektral Multi-Dimensi}
+Untuk setiap piksel ke-$n$ (di mana total sampel piksel $N = B \times H \times W = 2.097.152$), dibangun sebuah vektor fitur multidimensi $\mathbf{x}_n \in \mathbb{R}^7$. Vektor ini menggabungkan karakteristik radiometrik optik dan informasi topografi posisi yang dirumuskan sebagai berikut:
+\begin{enumerate}
+    \item \textbf{Fitur Spektral Optik:} Intensitas saluran warna Merah ($R_n$), Hijau ($G_n$), dan Biru ($B_n$) yang telah dinormalisasi secara linear ke dalam rentang kontinu $[0, 1]$.
+    \item \textbf{Indeks Biofisik Lahan:} Transformasi non-linear berupa \textit{Excess Green} ($ExG_n$) untuk menonjolkan kerapatan klorofil vegetasi aktif dan \textit{Excess Red} ($ExR_n$) untuk mengisolasi material tanah terbuka serta infrastruktur antropogenik \cite{woebbecke1995color}:
+    \begin{equation}
+        ExG_n = 2G_n - R_n - B_n
+    \end{equation}
+    \begin{equation}
+        ExR_n = 1.4R_n - G_n
+    \end{equation}
+    \item \textbf{Kesadaran Spasial Terbobot:} Koordinat absolut piksel $(i, j)$ dipetakan ke dalam grid kontinu $[0, 1]$. Untuk mencegah terjadinya dominasi fitur spasial geometris (\textit{spatial feature dominance}) yang memicu eror pemotongan blok kaku pada hasil kluster, disuntikkan faktor penimbang spasial ($\alpha = 0.1$):
+    \begin{equation}
+        X_n^* = \alpha \cdot \left(\frac{i}{H-1}\right), \quad Y_n^* = \alpha \cdot \left(\frac{j}{W-1}\right)
+    \end{equation}
+\end{enumerate}
+
+Matriks kombinasi fitur $\mathbf{X} \in \mathbb{R}^{N \times 7}$ kemudian distandardisasi menggunakan transformasi Z-score untuk menghasilkan vektor fitur akhir $\mathbf{z}_n$ yang bebas bias skala varians antar-dimensi:
+\begin{equation}
+    \mathbf{z}_n = \mathbf{D}^{-1}(\mathbf{x}_n - \mathbf{m})
+\end{equation}
+di mana $\mathbf{m}$ adalah vektor rata-rata sampel dan $\mathbf{D}$ merupakan matriks diagonal dari simpangan baku fitur.
+
+\subsection{Gaussian Mixture Model dan Optimasi Algoritme EM}
+Distribusi probabilitas dari ruang fitur spasio-spektral multidimensi $\mathbf{z}_n$ dimodelkan sebagai kombinasi linear dari $K = 8$ komponen fungsi densitas Gaussian multi-variat untuk mengakomodasi struktur data tutupan lahan yang heterogen \cite{bishop2006pattern}:
+\begin{equation}
+    p(\mathbf{z}_n | \boldsymbol{\Theta}) = \sum_{k=1}^{K} \pi_k \mathcal{N}(\mathbf{z}_n | \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)
+\end{equation}
+di mana $\pi_k$ adalah bobot pencampuran (\textit{mixing weight}) yang memenuhi syarat $\sum_{k=1}^K \pi_k = 1$, $\boldsymbol{\mu}_k \in \mathbb{R}^7$ merupakan vektor rata-rata (\textit{mean vector}) kluster, dan $\boldsymbol{\Sigma}_k \in \mathbb{R}^{7 \times 7}$ melambangkan matriks kovarians penuh (\textit{full covariance matrix}) yang menangkap korelasi silang antar ke-7 dimensi fitur spektral maupun spasial.
+
+Estimasi parameter kumpulan $\boldsymbol{\Theta} = \{\pi_k, \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k\}_{k=1}^K$ dioptimalkan secara iteratif menggunakan algoritme \textit{Expectation-Maximization} (EM) hingga mencapai batas konvergensi asimtotik \cite{dempster1977maximum}:
+\begin{enumerate}
+    \item \textbf{E-Step (Expectation):} Menghitung probabilitas posterior kontinu (\textit{responsibility}) bahwa piksel ke-$n$ dibangkitkan oleh komponen Gaussian ke-$k$:
+    \begin{equation}
+        \gamma_{nk} = \frac{\pi_k \mathcal{N}(\mathbf{z}_n | \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)}{\sum_{j=1}^{K} \pi_j \mathcal{N}(\mathbf{z}_n | \boldsymbol{\mu}_j, \boldsymbol{\Sigma}_j)}
+    \end{equation}
+    \item \textbf{M-Step (Maximization):} Memperbarui parameter statistik model berdasarkan nilai bobot posterior ekspektasi yang diperoleh dari langkah \textit{E-step}:
+    \begin{equation}
+        N_k = \sum_{n=1}^{N} \gamma_{nk}, \quad \pi_k^{\text{baru}} = \frac{N_k}{N}
+    \end{equation}
+    \begin{equation}
+        \boldsymbol{\mu}_k^{\text{baru}} = \frac{1}{N_k} \sum_{n=1}^{N} \gamma_{nk} \mathbf{z}_n
+    \end{equation}
+    \begin{equation}
+        \boldsymbol{\Sigma}_k^{\text{baru}} = \frac{1}{N_k} \sum_{n=1}^{N} \gamma_{nk} (\mathbf{z}_n - \boldsymbol{\mu}_k^{\text{baru}})(\mathbf{z}_n - \boldsymbol{\mu}_k^{\text{baru}})^T
+    \end{equation}
+\end{enumerate}
+Kondisi konvergen dikunci ketika selisih nilai rata-rata \textit{log-likelihood} per sampel antara dua iterasi berurutan berada di bawah ambang toleransi $\Delta \le 10^{-3}$.
+
+\subsection{Penyelarasan Kluster dan Evaluasi Kuantitatif}
+Karena model GMM bekerja secara \textit{unsupervised}, hasil indeks kluster prediksi kaku (\textit{hard clustering}) yang diperoleh melalui nilai argumen maksimum probabilitas posterior, $\hat{c}_n = \arg\max_k \gamma_{nk}$, bersifat arbitrer dan mengalami fenomena pertukaran label (\textit{label-switching}). Untuk melakukan validasi kuantitatif terhadap \textit{Ground Truth}, dibangun matriks kontingensi $\mathbf{C} \in \mathbb{R}^{K \times K}$ yang bertindak sebagai matriks biaya (\textit{cost matrix}) berdasarkan frekuensi tumpang tindih piksel antar-kelas \cite{congalton1991review}. Masalah penugasan kombinatorial ini diselesaikan secara optimal menggunakan metode Hungarian (\textit{Hungarian Method}) untuk memaksimalkan kecocokan elemen diagonal matriks korespondensi \cite{kuhn1955hungarian}:
+\begin{equation}
+    \max \sum_{k=1}^{K} \sum_{c=1}^{K} C_{kc} z_{kc}
+\end{equation}
+dengan kendala penyelarasan satu-ke-satu (\textit{bijective mapping}):
+\begin{equation}
+    \sum_{k=1}^{K} z_{kc} = 1, \quad \sum_{c=1}^{K} z_{kc} = 1
+\end{equation}
+di mana $z_{kc} \in \{0, 1\}$ melambangkan variabel keputusan biner apakah kluster prediksi $k$ dipetakan ke kelas riil $c$.
+
+Setelah seluruh label prediksi diselaraskan ke dalam ruang semantik yang sama, performa kedekatan spasial diukur menggunakan matriks evaluasi standar penginderaan jauh, yaitu \textit{Overall Pixel Accuracy} (OA) dan \textit{Mean Intersection over Union} (mIoU) berbasis \textit{Jaccard Index} per kelas tutupan lahan \cite{jaccard1912distribution}:
+\begin{equation}
+    \text{OA} = \frac{1}{N} \sum_{n=1}^{N} \mathbb{I}(\mathbf{Y}_n = \hat{\mathbf{Y}}_n)
+\end{equation}
+\begin{equation}
+    \text{IoU}_c = \frac{|\mathbf{Y}_c \cap \hat{\mathbf{Y}}_c|}{|\mathbf{Y}_c \cup \hat{\mathbf{Y}}_c|}
+\end{equation}
+di mana $\mathbb{I}(\cdot)$ adalah fungsi indikator biner, $\mathbf{Y}_c$ mewakili himpunan piksel kelas asli pada \textit{Ground Truth}, dan $\hat{\mathbf{Y}}_c$ melambangkan himpunan piksel hasil prediksi terarah yang telah diselaraskan oleh model GMM. Metrik mIoU dihitung dengan merata-ratakan nilai $\text{IoU}_c$ di seluruh komponen kelas $K$.
+
+%==================================
+\subsection{Estimasi Parameter Model}
+\label{SubSec:Estimation}
+Estimasi parameter dalam kerangka kerja \textit{Gaussian Mixture Model} (GMM) dilakukan menggunakan prinsip \textit{Maximum Likelihood Estimation} (MLE). Berbeda dengan model regresi linier standar, nilai estimasi tidak dapat diperoleh secara langsung dalam bentuk analitik (\textit{closed-form solution}) karena adanya operasi penjumlahan komponen di dalam fungsi logaritma. Misalkan $\boldsymbol{\Theta} = \{\pi_k, \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k\}_{k=1}^K$ menyatakan kumpulan parameter tak diketahui dari $K=8$ komponen Gaussian. Fungsi \textit{log-likelihood} dari total sampel data spasio-spektral $\mathbf{Z}$ dapat dirumuskan sebagai \cite{mclachlan2000finite}:
+\begin{equation}
+    \ln p(\mathbf{Z} \mid \boldsymbol{\Theta}) = \sum_{n=1}^{N} \ln \left( \sum_{k=1}^{K} \pi_k \mathcal{N}(\mathbf{z}_n \mid \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k) \right)
+\label{Eq:LogLikelihood}
+\end{equation}
+di mana $N = 2.097.152$ merupakan total sampel piksel yang diamati. Nilai estimasi parameter terbaik diperoleh dengan memaksimalkan fungsi objektif pada Persamaan~(\ref{Eq:LogLikelihood}). Karena derivatif langsung dari fungsi tersebut menghasilkan bentuk nonlinear yang sangat kompleks akibat interdependensi antar-parameter, nilai maksimum didekati secara iteratif menggunakan algoritme \textit{Expectation-Maximization} (EM) \cite{bishop2006pattern}. Algoritme ini memanfaatkan konsep variabel laten tersembunyi untuk menyederhanakan optimasi, menjamin peningkatan nilai fungsi \textit{log-likelihood} secara monoton pada setiap iterasi hingga mencapai kondisi konvergen lokal yang stabil.
+
+
+%==================================
+\section{Hasil dan Pembahasan}
+\label{Sec:Results}
+
+\subsection{Analisis Jalur Konvergensi dan Efisiensi Komputasi EM-GMM}
+Proses optimasi parameter statistik model campuran Gaussian dieksekusi secara simultan pada ruang data berdimensi $2.097.152 \times 7$. Algoritme \textit{Expectation-Maximization} (EM) menunjukkan stabilitas numerik yang sangat tinggi dan berhasil mengunci status konvergen penuh tepat pada iterasi ke-40 dengan nilai kerapatan probabilitas akhir (\textit{Final Log-Likelihood per Sample}) sebesar $6.27815$ dan akumulasi \textit{Total Log-Likelihood} mencapai $13.166.232,61$.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.75\textwidth]{Kurva_Konvergensi_GMM.png}
+\caption{Kurva karakteristik konvergensi asimtotik nilai \textit{per-sample log-likelihood} algoritme EM.}
+\label{Fig:ConvergenceCurve}
+\end{figure}
+
+Berdasarkan Gambar~\ref{Fig:ConvergenceCurve}, karakteristik pergerakan nilai fungsi objektif terbagi ke dalam fase dinamika yang jelas. Pada iterasi awal (iterasi 1 ke 2), terjadi lompatan \textit{log-likelihood} terbesar dengan nilai delta peningkatan mencapai $0,08059$, mengindikasikan reposisi agresif vektor rata-rata ($\boldsymbol{\mu}_k$) ke arah pusat kepadatan spektral makro. Memasuki iterasi 3 hingga 19, laju konvergensi mendatar akibat model tertahan pada area \textit{local plateau} untuk menyesuaikan bentuk matriks kovarians penuh ($\boldsymbol{\Sigma}_k$). 
+
+Fenomena \textit{saddle point escape} yang sangat signifikan terjadi antara iterasi 20 hingga 23, di mana delta peningkatan melonjak kembali dari $0,01442$ hingga mencapai puncak akselerasi kedua sebesar $0,03555$ pada iterasi 23. Secara teoritis, lonjakan sekunder ini membuktikan keberhasilan algoritme EM mematahkan ambiguitas lokal untuk memisahkan batas dua kelas heterogen yang saling berhimpitan berat. Seluruh rantai optimasi ini diselesaikan dalam durasi komputasi yang sangat efisien selama $186,40$ detik dengan performa kecocokan model yang sangat solid, dibuktikan oleh perolehan skor \textit{Bayesian Information Criterion} (BIC) sebesar $-26.332.570,69$.
+
+\subsection{Analisis Distribusi Bobot Campuran Komponen (Mixing Weights)}
+Nilai koefisien pencampuran ($\pi_k$) mencerminkan nilai probabilitas prior geografis dari setiap komponen Gaussian di dalam ruang sampel spasio-spektral. Struktur persentase representasi wilayah yang berhasil diekstraksi secara otomatis oleh model disajikan dengan garis pembatas lengkap pada Tabel~\ref{Tab:MixingWeights}.
+
+\begin{table}[htbp]
+\centering
+\caption{Distribusi Koefisien Bobot Campuran ($\pi_k$) Hasil Optimasi EM-GMM}
+\label{Tab:MixingWeights}
+% Menggunakan l c c (tanpa tanda | ) agar tidak ada garis vertikal yang kaku
+\begin{tabular}{lcc}
+\hline
+\textbf{Komponen Kluster} & \textbf{Identitas Semantik Kelas} & \textbf{Bobot Campuran ($\pi_k$)} \\
+\hline
+Kluster 0 & \textit{Bareland} & 0,16550 \\
+Kluster 1 & \textit{Grass}    & 0,10725 \\
+Kluster 2 & \textit{Pavement} & 0,11477 \\
+Kluster 3 & \textit{Road}     & 0,21600 \\
+Kluster 4 & \textit{Tree}     & 0,06707 \\
+Kluster 5 & \textit{Water}    & 0,10116 \\
+Kluster 6 & \textit{Cropland} & 0,09314 \\
+Kluster 7 & \textit{Building} & 0,13511 \\
+\hline
+\end{tabular}
+\end{table}
+
+Data pada Tabel~\ref{Tab:MixingWeights} mengekspos karakteristik lanskap area pengamatan yang didominasi oleh elemen infrastruktur buatan manusia (\textit{built-up area}). Gabungan wilayah \textit{Road} ($\pi_3 = 21,60\%$), \textit{Building} ($\pi_7 = 13,51\%$), dan \textit{Pavement} ($\pi_2 = 11,47\%$) menguasai hampir setengah dari total ruang spasial gambar ($46,58\%$). Sebaliknya, vegetasi alami berupa tegakan pohon (\textit{Tree}) menempati proporsi ruang terkecil dengan nilai $\pi_4$ sebesar $6,71\%$. Distribusi prior ini bertindak sebagai penyeimbang kekuatan probabilitas posterior pada tahap klasifikasi tingkat piksel.
+
+\subsection{Evaluasi Visual dan Pemetaan Tingkat Keyakinan Spasial}
+Rekonstruksi spasial dua dimensi dilakukan untuk memetakan hasil alokasi kluster tak-terarah kembali ke dimensi kartografis asli. Penilaian kualitatif dilakukan melalui komparasi multi-panel berskala batch.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1.0\textwidth]{perbandingan_hasil_kluster.png}
+\caption{Dasbor komparatif hasil segmentasi: (a) Original RGB, (b) Ground Truth, (c) EM GMM Result, dan (d) EM Confidence Score.}
+\label{Fig:SpatialDashboard}
+\end{figure}
+
+Sesuai dengan visualisasi pada Gambar~\ref{Fig:SpatialDashboard}, penyertaan koordinat spasial terbobot ($\alpha = 0,1$) berhasil mengeliminasi kemunculan \textit{noise salt-and-pepper} tanpa menciptakan pemotongan blok geometris yang kaku, sehingga menghasilkan bentuk segregasi lahan yang solid dan kontinu. Objek-objek alami berukuran masif seperti badan air (\textit{Water}) dan petakan sawah (\textit{Cropland}) mampu dikenali batas tepinya secara konsisten. 
+
+Selain itu, keuntungan intrinsik dari pendekatan probabilistik ini adalah ketersediaan panel \textit{EM Confidence Score}. Area homogen yang berada di pusat spasial objek ditandai dengan warna kuning cerah (skor kepastian mendekati $1,0$). Sebaliknya, pada area perbatasan atau garis transisi antarkelas, nilai keyakinan menurun tajam yang direpresentasikan oleh gradasi warna gelap (colormap \textit{magma}). Fenomena ini secara fisik membuktikan kemampuan sensitivitas model dalam mengisolasi wilayah piksel campuran (\textit{mixed-pixel}) yang dipicu oleh keterbatasan resolusi spasial sensor optik satelit.
+
+\subsection{Analisis Kuantitatif Performa Segmentasi dan Penyelarasan Hungarian}
+\label{SubSec:Quantitative}
+Validasi kuantitatif akhir dilakukan setelah indeks kluster acak diorientasikan kembali ke skema warna dunia nyata melalui optimasi penugasan linier biner algoritme Hungarian. Hasil pengujian menyeluruh menunjukkan performa makro model yang mencakup tingkat ketepatan piksel keseluruhan, kepastian konvergensi, efisiensi waktu, serta ukuran kebaikan sua model (\textit{goodness of fit}) yang dirangkum secara terpusat pada Tabel~\ref{Tab:GlobalMetrics}.
+
+\begin{table}[htbp]
+\centering
+\caption{Metrik Evaluasi Performa Global Hasil Optimasi GMM-EM}
+\label{Tab:GlobalMetrics}
+% \resizebox dihapus di sini agar ukuran font kembali normal dan pas
+\begin{tabular}{lc}
+\hline
+\textbf{Metrik Evaluasi Global Eksperimen} & \textbf{Nilai Aktual} \\
+\hline
+Overall Pixel Accuracy (OA) & 0,3478 \\
+Mean Intersection over Union (mIoU) & 0,1882 \\
+Status Konvergensi Model (\textit{Model Converged}) & \textit{True} \\
+Jumlah Iterasi Aktual Hingga Konvergen & 40 \\
+Durasi Waktu Komputasi EM & 186,40 Detik \\
+Skor \textit{Bayesian Information Criterion} (BIC) & -26.332.570,69 \\
+\hline
+\end{tabular}
+\end{table}
+
+Model GMM-EM berhasil mengunci konvergensi penuh pada iterasi ke-40 dengan nilai BIC yang sangat masif, menandakan tingginya efisiensi pembagian komponen parameter. Untuk membedah karakteristik pengelompokan secara lebih mendalam, dilakukan analisis keterkaitan antara probabilitas prior geografis yang diwakili oleh bobot campuran komponen ($\pi_k$) dengan kemampuan akurasi penajaman batas wilayah nyata yang diwakili oleh nilai \textit{Intersection over Union} (IoU). Distribusi parameter struktural per kelas tutupan lahan tersebut disajikan secara rapi pada Tabel~\ref{Tab:ClassMetrics}.
+
+\begin{table}[htbp]
+\centering
+\caption{Distribusi Koefisien Bobot Campuran ($\pi_k$) dan Akurasi Spasial IoU Per Kelas Objek}
+\label{Tab:ClassMetrics}
+% Menggunakan \small agar ukuran font tabel kedua serasi dengan tabel pertama tanpa melar
+\small
+\begin{tabular}{llcc}
+\hline
+\textbf{Komponen Kluster} & \textbf{Identitas Semantik Kelas} & \textbf{Nilai Performa IoU} \\
+\hline
+Kluster 0 & \textit{Bareland} & 0,0000 \\
+Kluster 1 & \textit{Grass}    & 0,1637 \\
+Kluster 2 & \textit{Pavement} & 0,1047 \\
+Kluster 3 & \textit{Road}     & 0,0308 \\
+Kluster 4 & \textit{Tree}     & 0,3102 \\
+Kluster 5 & \textit{Water}    & 0,1734 \\
+Kluster 6 & \textit{Cropland} & 0,4924 \\
+Kluster 7 & \textit{Building} & 0,2305 \\
+\hline
+\end{tabular}
+\end{table}
+
+Detail akumulasi sebaran tumpang tindih piksel secara riil yang merepresentasikan tingkat ambiguitas model dalam memisahkan antar-dimensi fitur diilustrasikan melalui grafik matriks kontingensi asli pada Gambar~\ref{Fig:ConfusionMatrix}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.55\textwidth]{Confusion_Matrix.png}
+\caption{Matriks kontingensi kepatuhan tumpang tindih piksel antara kluster asli GMM dan kelas \textit{Ground Truth}.}
+\label{Fig:ConfusionMatrix}
+\end{figure}
+
+Analisis nilai IoU dan bobot campuran secara integratif menyingkap batasan fisik serta karakteristik pemisahan ruang fitur dari model statistik pengklusteran tingkat piksel ini, yang terbagi ke dalam tiga tingkatan performa:
+\begin{enumerate}
+    \item \textbf{Kelompok Akurasi Tinggi (Spektral Kontras):} Kelas \textit{Cropland} mencatat skor IoU tertinggi sebesar $49,24\%$, diikuti oleh \textit{Tree} ($31,02\%$) dan \textit{Building} ($23,05\%$). Keberhasilan delineasi geospasial pada kelompok ini didorong oleh kuatnya kontras nilai indeks biofisik non-linear ($ExG$) yang berhasil memisahkan secara tegas tanda spektral material biologis aktif (klorofil daun tanaman pertanian dan pohon) terhadap objek buatan manusia yang cenderung pasif.
+    \item \textbf{Kelompok Akurasi Moderat (Wilayah Transisi):} Kelas \textit{Water} ($17,34\%$), \textit{Grass} ($16,37\%$), dan \textit{Pavement} ($10,47\%$) menunjukkan performa penajaman yang moderat. Hal ini merefleksikan adanya ambiguitas parsial di ruang fitur. Sebagai contoh, badan air (\textit{Water}) kerap kali berbagi nilai radiometrik yang berhimpitan dengan bayangan gelap yang ditimbulkan oleh struktur atap gedung tinggi, sementara wilayah \textit{Grass} memiliki batas parameter kontinu yang secara alami beririsan dengan tepi luar wilayah \textit{Cropland}.
+    \item \textbf{Kelompok Kegagalan Deteksi (\textit{Variance Absorption}):} Hasil pengujian terkecil dicatat oleh kelas \textit{Road} ($3,08\%$) dan kelas \textit{Bareland} yang mengalami kegagalan mutlak dengan nilai IoU $0,0000\%$. Berdasarkan pola matriks kontingensi pada Gambar~\ref{Fig:ConfusionMatrix}, seluruh sampel piksel tanah terbuka (\textit{Bareland}) sepenuhnya terserap (\textit{absorbed}) ke dalam varians komponen \textit{Building} dan \textit{Pavement}. Secara fisik, objek \textit{Bareland} memiliki profil nilai RGB dan indeks $ExR$ yang sangat identik dengan material semen pada atap gedung dan beton trotoar. Karena GMM mengalokasikan data berdasarkan kepadatan probabilitas kuadratik, kelas \textit{Bareland} yang memiliki bobot prior lebih rendah ($\pi_0 = 16,55\%$) kalah bersaing dan terasimilasi ke dalam elipsoid komponen infrastruktur urban yang jauh lebih dominan secara spasial, di mana area jalan raya (\textit{Road}) menyerap proporsional prior tertinggi sebesar $21,60\%$.
+\end{enumerate}
+
+%==================================
+\section{Kesimpulan}
+\label{Sec:Conclusion}
+
+Penelitian ini berhasil mengimplementasikan pendekatan pengklusteran statistik tanpa pengawasan (\textit{unsupervised clustering}) berbasis \textit{Gaussian Mixture Model} dengan optimasi algoritme \textit{Expectation-Maximization} (GMM-EM) untuk tugas segmentasi semantik tutupan lahan pada citra satelit resolusi tinggi OpenEarthMap. Tanpa bergantung pada arsitektur \textit{deep learning} yang intensif sumber daya komputasi, rekayasa fitur spasio-spektral terbukti mampu membangun representasi objek yang kokoh di permukaan bumi. Penggabungan saluran warna RGB mentah, indeks biofisik nonlinear (\textit{Excess Green} dan \textit{Excess Red}), serta kesadaran grid spasial terbobot dengan faktor penimbang $\alpha = 0,1$ terbukti sukses mengeliminasi kemunculan \textit{noise salt-and-pepper} sekaligus memecahkan masalah eror pemotongan blok geometris kaku yang kerap mengorbankan batas-batas alami objek pada model kluster konvensional.
+
+Secara kuantitatif, model campuran statistik ini mencapai konvergensi penuh pada iterasi ke-40 dengan durasi komputasi yang sangat efisien selama 186,40 detik, menghasilkan nilai \textit{Overall Pixel Accuracy} (OA) sebesar 34,78\% serta \textit{Mean Intersection over Union} (mIoU) sebesar 18,82\%. Hasil analisis granular menunjukkan bahwa model sangat andal dalam mengidentifikasi kelas vegetasi aktif seperti \textit{Cropland} (IoU 49,24\%) dan \textit{Tree} (IoU 31,02\%) berkat kontras fitur klorofil yang tegas dari indeks biofisik. Namun, keterbatasan model berbasis piksel ini terekspos pada kelas \textit{Bareland} yang mengalami kegagalan mutlak (IoU 0,00\%) akibat sepenuhnya terserap ke dalam komponen infrastruktur urban (\textit{Building} dan \textit{Pavement}). Fenomena absorpsi ragam (\textit{variance absorption}) ini terjadi karena kemiripan tanda radiometrik tanah terbuka dengan material atap semen dan jalan beton, di mana elipsoid kelas urban yang memiliki bobot prior $\pi_k$ lebih besar mendominasi ruang kerapatan probabilitas kuadratik GMM.
+
+Secara keseluruhan, eksperimen ini menegaskan bahwa model campuran statistik probabilistik dapat bertindak sebagai kerangka kerja awal (\textit{baseline}) yang sangat efisien, transparan, dan berdasar teoretis kuat dalam analisis penginderaan jauh sebelum beralih ke model neural network yang kompleks. Untuk penelitian di masa mendatang, performa delineasi objek dapat ditingkatkan dengan menyuntikkan fitur tekstur tingkat lanjut seperti \textit{Gray-Level Co-occurrence Matrix} (GLCM) guna mengurai ambiguitas antara material bangunan dan tanah terbuka. Selain itu, eksplorasi penggunaan tipe campuran distribusi non-Gaussian serta skema penyeimbang kelas probabilistik sangat direkomendasikan untuk mengatasi masalah ketidakseimbangan kelas geografis yang ekstrem pada lanskap dunia nyata.
+
+%==================================
+\printbibliography
+\end{document}

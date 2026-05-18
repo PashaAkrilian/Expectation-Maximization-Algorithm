@@ -1,0 +1,72 @@
+\ifdefined\INCLUDECOVER
+\begin{titlepage}
+    \centering
+    \thispagestyle{empty}
+    \setstretch{1.0} 
+
+    \vspace*{-2cm} % Mengangkat judul lebih tinggi
+
+    % Judul Paper: Besar dan Bold
+    {\setstretch{1.4}
+    {\LARGE \textbf{Penerapan Algoritme Expectation-Maximization (EM) Berbasis Varians Penuh (Full-Covariance) untuk Unsupervised Semantic Segmentation Citra OpenEarthMap}} \par}
+
+    \vspace{1cm} % Jarak judul ke logo diperkecil sedikit
+
+    % Logo Utama (UNNES) di Tengah
+    \IfFileExists{logo_unnes.png}{\includegraphics[width=5.5cm]{logo_unnes.png}}{}
+
+    \vspace{1.5cm} % Jarak logo ke penulis diperkecil sedikit
+
+    % Bagian Penulis
+    \textbf{Disusun Oleh:}\\[0.3cm]
+    {\large Dimas Pasha Akrilian (2404220026)} \par
+
+    \vfill 
+
+    % Footer: Institusi dan Tahun
+    {\large
+    \textbf{PROGRAM STUDI STATISTIKA DAN SAINS DATA}\\
+    \textbf{FAKULTAS MATEMATIKA DAN ILMU PENGETAHUAN ALAM}\\
+    \textbf{UNIVERSITAS NEGERI SEMARANG}\\
+    \textbf{2026}}
+    
+\end{titlepage}
+\else
+\documentclass[11pt]{article}
+\usepackage{graphicx}
+\usepackage{setspace}
+\begin{document}
+\begin{titlepage}
+    \centering
+    \thispagestyle{empty}
+    \setstretch{1.0} 
+
+    \vspace*{-1cm} % Mengangkat judul lebih tinggi
+
+    % Judul Paper: Besar dan Bold
+    {\setstretch{1.4}
+    {\LARGE \textbf{Penerapan Algoritme Expectation-Maximization (EM) Berbasis Varians Penuh (Full-Covariance) untuk Unsupervised Semantic Segmentation Citra OpenEarthMap}} \par}
+
+    \vspace{1cm}
+
+    % Logo Utama (UNNES) di Tengah
+    \IfFileExists{logo_unnes.png}{\includegraphics[width=5.5cm]{logo_unnes.png}}{}
+
+    \vspace{1.5cm}
+
+    % Bagian Penulis
+    \textbf{Disusun Oleh:}\\[0.3cm]
+    {\large Dimas Pasha Akrilian (2404220026)} \par
+
+    \vfill 
+
+    % Footer: Institusi dan Tahun
+    {\large
+    \textbf{PROGRAM STUDI STATISTIKA DAN SAINS DATA}\\
+    \textbf{FAKULTAS MATEMATIKA DAN ILMU PENGETAHUAN ALAM}\\
+    \textbf{UNIVERSITAS NEGERI SEMARANG}\\
+    \textbf{2026}}
+    
+\end{titlepage}
+\end{document}
+\fi
