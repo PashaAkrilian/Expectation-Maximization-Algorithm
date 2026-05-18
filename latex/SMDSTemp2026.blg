@@ -1,0 +1,18 @@
+[0] Config.pm:307> INFO - This is Biber 2.19
+[0] Config.pm:310> INFO - Logfile is 'SMDSTemp2026.blg'
+[114] biber:340> INFO - === Mon May 18, 2026, 19:33:20
+[134] Biber.pm:419> INFO - Reading 'SMDSTemp2026.bcf'
+[231] Biber.pm:979> INFO - Found 8 citekeys in bib section 0
+[256] Biber.pm:4419> INFO - Processing section 0
+[274] Biber.pm:4610> INFO - Looking for bibtex file '../bibliography/SMDSBib.bib' for section 0
+[276] bibtex.pm:1713> INFO - LaTeX decoding ...
+[295] bibtex.pm:1519> INFO - Found BibTeX data source '../bibliography/SMDSBib.bib'
+[416] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[416] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[416] Biber.pm:4239> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'en-US'
+[417] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
+[426] bbl.pm:660> INFO - Writing 'SMDSTemp2026.bbl' with encoding 'UTF-8'
+[432] bbl.pm:763> INFO - Output to SMDSTemp2026.bbl
+[433] Biber.pm:131> WARN - Duplicate entry key: 'mclachlan2000finite' in file '../bibliography/SMDSBib.bib', skipping ...
+[433] Biber.pm:131> WARN - Duplicate entry key: 'bishop2006pattern' in file '../bibliography/SMDSBib.bib', skipping ...
+[433] Biber.pm:133> INFO - WARNINGS: 2

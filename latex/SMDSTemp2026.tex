@@ -23,7 +23,7 @@ giveninits=true,
 doi=true,
 url=false
 ]{biblatex}
-\addbibresource{SMDSBib.bib}
+\addbibresource{../bibliography/SMDSBib.bib}
 \usepackage{fancyhdr}
 \newcommand{\shorttitle}{}
 \newcommand{\shortauthor}{}
@@ -34,7 +34,7 @@ url=false
 
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
 \newcommand{\orcidlink}[1]{%
-\href{https://orcid.org/#1}{\includegraphics[height=1.6ex]{ORCID_iD.png}}%
+\href{https://orcid.org/#1}{\includegraphics[height=1.6ex]{../figures/ORCID_iD.png}}%
 }
 \renewcommand{\figurename}{Gambar}
 \renewcommand{\tablename}{Tabel} 
@@ -287,7 +287,7 @@ Proses optimasi parameter statistik model campuran Gaussian dieksekusi secara si
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.75\textwidth]{Kurva_Konvergensi_GMM.png}
+\includegraphics[width=0.75\textwidth]{../figures/Kurva_Konvergensi_GMM.png}
 \caption{Kurva karakteristik konvergensi asimtotik nilai \textit{per-sample log-likelihood} algoritme EM.}
 \label{Fig:ConvergenceCurve}
 \end{figure}
@@ -327,7 +327,7 @@ Rekonstruksi spasial dua dimensi dilakukan untuk memetakan hasil alokasi kluster
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=1.0\textwidth]{perbandingan_hasil_kluster.png}
+\\includegraphics[width=1.0\\textwidth]{../figures/perbandingan_hasil_kluster.png}
 \caption{Dasbor komparatif hasil segmentasi: (a) Original RGB, (b) Ground Truth, (c) EM GMM Result, dan (d) EM Confidence Score.}
 \label{Fig:SpatialDashboard}
 \end{figure}
@@ -387,7 +387,7 @@ Detail akumulasi sebaran tumpang tindih piksel secara riil yang merepresentasika
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.55\textwidth]{Confusion_Matrix.png}
+\includegraphics[width=0.55\textwidth]{../figures/Confusion_Matrix.png}
 \caption{Matriks kontingensi kepatuhan tumpang tindih piksel antara kluster asli GMM dan kelas \textit{Ground Truth}.}
 \label{Fig:ConfusionMatrix}
 \end{figure}
